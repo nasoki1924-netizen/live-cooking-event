@@ -1,1 +1,320 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Φόρμα Εκδήλωσης Ενδιαφέροντος - Live Cooking Event</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #d1d1d1;
+            background-image: 
+                linear-gradient(45deg, #c8c8c8 25%, transparent 25%),
+                linear-gradient(-45deg, #c8c8c8 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #c8c8c8 75%),
+                linear-gradient(-45deg, transparent 75%, #c8c8c8 75%);
+            background-size: 60px 60px;
+            background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
+            animation: backgroundMove 20s linear infinite;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        @keyframes backgroundMove {
+            0% { background-position: 0 0, 0 30px, 30px -30px, -30px 0px; }
+            100% { background-position: 60px 60px, 60px 90px, 90px 30px, 30px 60px; }
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            animation: containerFadeIn 1s ease-out;
+        }
+
+        @keyframes containerFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #003366 0%, #004080 50%, #003366 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: bold;
+            display: inline-block;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .header h1:hover {
+            transform: scale(1.05);
+        }
+
+        .header h1:hover .chef-emoji {
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(15deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(-5px) rotate(-15deg); }
+        }
+
+        @keyframes fadeInPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
+        }
+
+        .chef-emoji {
+            font-size: 2em;
+            margin-left: 10px;
+            display: inline-block;
+            animation: wave 2s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            75% { transform: rotate(-15deg); }
+        }
+
+        .event-details {
+            background: #f8f9fa;
+            padding: 25px 30px;
+            border-left: 5px solid #003366;
+            margin: 30px;
+            border-radius: 10px;
+        }
+
+        .event-detail-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 1.05em;
+            transition: transform 0.3s ease, padding-left 0.3s ease;
+            cursor: default;
+        }
+
+        .event-detail-item:hover {
+            transform: translateX(10px);
+            padding-left: 10px;
+        }
+
+        .event-detail-item strong {
+            color: #003366;
+            min-width: 120px;
+            display: inline-block;
+        }
+
+        .form-section {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .required {
+            color: #e74c3c;
+            margin-left: 3px;
+        }
+
+        input[type="text"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        input[type="text"]:focus,
+        input[type="tel"]:focus {
+            outline: none;
+            border-color: #003366;
+            box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1), 0 0 20px rgba(0, 51, 102, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #003366 0%, #004080 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 51, 102, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .map-section {
+            background: white;
+            padding-top: 30px;
+        }
+
+        .unox-badge {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.6em;
+            }
+
+            .event-details {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            .form-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LIVE COOKING<span class="chef-emoji">👨‍🍳</span></h1>
+            <p style="font-size: 1.1em; margin-top: 10px; animation: fadeInPulse 2s ease-in-out infinite;">Φόρμα Εκδήλωσης Ενδιαφέροντος</p>
+        </div>
+
+        <div class="event-details">
+            <div class="event-detail-item">
+                <strong>📅 Ημερομηνία:</strong>
+                <span>Τετάρτη, 26 Νοεμβρίου 2025</span>
+            </div>
+            <div class="event-detail-item">
+                <strong>🕐 Ώρα:</strong>
+                <span>10:00 ΑΜ - 2:00 ΜΜ</span>
+            </div>
+            <div class="event-detail-item">
+                <strong>📍 Τοποθεσία:</strong>
+                <span>Barolo Trattoria🍝 - Κανάρη 2, Αλεξανδρούπολη 681 00</span>
+            </div>
+        </div>
+
+        <form class="form-section" id="registrationForm" action="https://formspree.io/f/xvgvwjpw" method="POST">
+            <div class="form-group">
+                <label for="fullname">Ονοματεπώνυμο <span class="required">*</span></label>
+                <input type="text" id="fullname" name="fullname" required placeholder="π.χ. Γιώργος Παπαδόπουλος">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Τηλέφωνο <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" required placeholder="69XXXXXXXX">
+            </div>
+
+            <button type="submit" class="submit-btn">Υποβολή Αίτησης</button>
+        </form>
+
+        <div style="background: #efecec; padding: 30px; margin: 0 30px 30px 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <p style="font-size: 1.05em; line-height: 1.8; text-align: center; color: #2c3e50;">
+                Σε συνεργασία με την <strong style="color: #003366;">Unox 🇮🇹</strong>, 
+                σας προσκαλούμε στην παρουσίαση των νέων μοντέλων επαγγελματικών φούρνων.
+                <br><br>
+                Θα έχετε την ευκαιρία να δείτε από κοντά τις δυνατότητες τους 
+                και να παρακολουθήσετε live cooking 👨‍🍳 με απολαυστικές συνταγές.
+            </p>
+        </div>
+
+        <div style="background: white; padding: 30px; margin: 30px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <h3 style="color: #003366; margin-bottom: 20px; font-size: 1.3em;">Επισκεφθείτε μας</h3>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap;">
+                <div>
+                    <p style="color: #7f8c8d; margin-bottom: 10px; font-size: 0.95em;">Σαρώστε το QR Code</p>
+                    <img src="data:image/webp;base64,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" alt="QR Code" style="width: 150px; height: 150px; border: 3px solid #003366; border-radius: 10px; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.1) rotate(5deg)'; this.style.boxShadow='0 10px 30px rgba(0,51,102,0.4)'" onmouseout="this.style.transform='scale(1) rotate(0deg)'; this.style.boxShadow='none'">
+                </div>
+                <div style="text-align: left;">
+                    <p style="color: #7f8c8d; margin-bottom: 10px; font-size: 0.95em;">Ή επισκεφθείτε</p>
+                    <a href="https://www.pigasoshoreca.gr" target="_blank" style="color: #003366; font-size: 1.2em; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease;" onmouseover="this.style.transform='translateX(5px)'; this.style.color='#004080'" onmouseout="this.style.transform='translateX(0)'; this.style.color='#003366'">
+                        🌐 www.pigasoshoreca.gr
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #003366; color: white; padding: 25px; text-align: center;">
+            <p style="font-size: 1.2em; font-weight: 600; margin-bottom: 5px;">Pigasos Horeca</p>
+            <p style="font-size: 1em; color: #d4ebf7;">1 χλμ Ξάνθης, Καβάλας, Ξάνθη 671 00</p>
+        </div>
+
+        <div class="unox-badge">
+            <p style="color: #7f8c8d; margin-bottom: 10px; font-weight: 600;">Powered by</p>
+            <p style="font-size: 1.5em; font-weight: bold; color: #000000;">UNOX 🇮🇹</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('phone').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+        
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            const phone = document.getElementById('phone').value;
+            if(phone.length < 10) {
+                e.preventDefault();
+                alert('Παρακαλώ εισάγετε έγκυρο τηλέφωνο 10 ψηφίων.');
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>
